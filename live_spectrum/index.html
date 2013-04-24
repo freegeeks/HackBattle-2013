@@ -7,8 +7,11 @@
 <script src="/socket.io/socket.io.js"></script>
 <script src="http://code.jquery.com/jquery-2.0.0.js"></script>
 <script>
-
 	$(document).ready(function() {
+        // Load audio to be played on a hit
+        var audio = new Audio();
+        audio.src = 'coin.wav';
+
 	    var socket = io.connect('http://public.renangoncalves.com', 8080);
 
         // Clicking on the slot
@@ -20,6 +23,7 @@
 
             // listen to change slot event
             socket.on('change-' + slot, function (data) {
+                audio.play();
                 $('body').css('background-color', data.color);
             });
 

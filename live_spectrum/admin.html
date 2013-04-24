@@ -6,11 +6,17 @@
 <script src="http://code.jquery.com/jquery-2.0.0.js"></script>
 <script>
 $(document).ready(function() {
+    // Load audio to be played on a new
+    // item comes in a slot
+    var audio = new Audio();
+    audio.src = 'coin.wav';
+
     var socket = io.connect('http://public.renangoncalves.com', 8080);
 
     // Listen to adm new slot 
     socket.on('adm', function (data) {
         // add item representation to slot
+        audio.play();
         $('#' + data.slot).append('<span>.</span>');
     });
     

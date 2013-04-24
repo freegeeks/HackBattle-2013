@@ -34,27 +34,30 @@
 		//DZ.player.setVolume(100);
 		//DZ.player.seek(0);
 		//DZ.player.play();
-        audio.play();
+        //audio.play();
+        $('#audio').play();
 	});
 	socket.on('stop', function (data) {
-        audio.stop();
+        //audio.stop();
+        $('#audio').stop();
 		//DZ.player.pause();
 	});
 	socket.on('change-color', function (data) {
 		$('body').css('background-color', data.color);
 	});
 
-    var audio = new Audio();
+    //var audio = new Audio();
 	$(document).ready(function() {
 		$('#notMe, body').bind('click', function() {
 			socket.emit('not-me', { not: 'me' });
 		});
 
         // load music to play
-        audio.src = 'http://195.68.237.84/bolnl/d2/264/458/ELCOAZKXYGMEPHLBCZAXRKWOYPME.wma';
-        audio.load();
+        //audio.src = 'http://195.68.237.84/bolnl/d2/264/458/ELCOAZKXYGMEPHLBCZAXRKWOYPME.wma';
+        //audio.load();
+        $('#audio').load();
 	});
 </script>
-
+    <audio src="http://195.68.237.84/bolnl/d2/264/458/ELCOAZKXYGMEPHLBCZAXRKWOYPME.wma" id="audio">
 </body>
 </html>

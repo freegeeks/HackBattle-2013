@@ -44,13 +44,13 @@
 		$('body').css('background-color', data.color);
 	});
 
+    var audio = new Audio();
 	$(document).ready(function() {
 		$('#notMe, body').bind('click', function() {
 			socket.emit('not-me', { not: 'me' });
 		});
 
         // load music to play
-        var audio = new Audio();
         audio.src = 'http://195.68.237.84/bolnl/d2/264/458/ELCOAZKXYGMEPHLBCZAXRKWOYPME.wma';
         audio.load();
 	});

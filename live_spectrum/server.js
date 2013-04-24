@@ -7,18 +7,21 @@ server.listen(8080);
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
 });
+app.get('/super-secret-admin.html', function (req, res) {
+  res.sendfile(__dirname + '/admin.html');
+});
 
 io.sockets.on('connection', function (socket) {
 
     // Listen to client slots change
 	socket.on('slot', function(data) {
         // Tell the adm where the slot is
-		socket.emit('adm', { slot: 'slot1' });
+		io.sockets.emit('adm', { slot: data.slot });
 	});
 
     // Listen to adm hits
 	socket.on('hit', function(data) {
         // Tell the adm where the slot is
-		socket.emit('change-' + data.slot, { color: 'red' });
+		io.sockets.emit('change-' + data.slot, { color: 'red' });
 	});
 });

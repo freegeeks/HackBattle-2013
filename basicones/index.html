@@ -12,6 +12,7 @@
 <script src="/socket.io/socket.io.js"></script>
 <script src="http://code.jquery.com/jquery-2.0.0.js"></script>
 <script>
+/*
 	DZ.init({
 		appId  : '116585',
 		channelUrl : 'http://public.renangoncalves.com:8080/channel.html',
@@ -19,6 +20,7 @@
 			onload : function(){}
 		}
 	});
+    */
 
 	var socket = io.connect('http://public.renangoncalves.com', 8080);
 	socket.on('connect', function (data) {
@@ -26,15 +28,17 @@
 	});
 	socket.on('start', function (data) {
 		// Load Track
-		DZ.player.playAlbum(302127);
+		//DZ.player.playAlbum(302127);
 
 		// Play
-		DZ.player.setVolume(100);
-		DZ.player.seek(0);
-		DZ.player.play();
+		//DZ.player.setVolume(100);
+		//DZ.player.seek(0);
+		//DZ.player.play();
+        audio.play();
 	});
 	socket.on('stop', function (data) {
-		DZ.player.pause();
+        audio.stop();
+		//DZ.player.pause();
 	});
 	socket.on('change-color', function (data) {
 		$('body').css('background-color', data.color);
@@ -44,6 +48,11 @@
 		$('#notMe, body').bind('click', function() {
 			socket.emit('not-me', { not: 'me' });
 		});
+
+        // load music to play
+        var audio = new Audio();
+        audio.src = 'http://195.68.237.84/bolnl/d2/264/458/ELCOAZKXYGMEPHLBCZAXRKWOYPME.wma';
+        audio.load();
 	});
 </script>
 

@@ -40,7 +40,9 @@
 		//DZ.player.seek(0);
 		//DZ.player.play();
         //audio.play();
-        $('#audio')[0].play();
+        var audio = $('#audio')[0];
+        audio.currentTime = 0;
+        audio.play();
 	});
 	socket.on('stop', function (data) {
         //audio.stop();

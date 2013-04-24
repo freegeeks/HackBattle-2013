@@ -1,0 +1,28 @@
+<html>
+<head>
+	<title>Basicones</title>
+</head>
+<body>
+
+<div id="notMe" style="float: left; width: 100%; height: 100%;"></div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="http://code.jquery.com/jquery-2.0.0.js"></script>
+<script>
+  var socket = io.connect('http://public.renangoncalves.com', 8080);
+  socket.on('connect', function (data) {
+  	$('body').css('background-color', '');
+  });
+  socket.on('change-color', function (data) {
+  	$('body').css('background-color', data.color);
+  });
+
+  $(document).ready(function() {
+	  $('#notMe, body').bind('click', function() {
+	  	socket.emit('not-me', { not: 'me' });
+	  });
+	});
+</script>
+
+</body>
+</html>

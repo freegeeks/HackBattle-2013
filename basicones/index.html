@@ -68,6 +68,17 @@
         var audio = $('#audio')[0];
         audio.controls = 'controls';
         audio.load();
+
+        // Call API
+        $.ajax('http://api.deezer.com/2.0/album/302127?output=jsonp', {
+        	dataType: 'jsonp',
+        	success: function(data) {
+        		var tracks = data.tracks.data;
+        		var track = tracks[Math.floor(Math.random() * tracks.length)];
+        		audio.src = track.preview;
+        		audio.load();
+        	}
+        });
 	});
 </script>
 

@@ -5,18 +5,43 @@ var app = require('express')()
 server.listen(8080);
 
 // Define some colors
-colors = [
-    'red',
-    'blue',
-    'orange',
-    'green',
-    'white',
-    'black',
-    'yellow'
-];
+slots = {
+    slot1: {
+        color: 'red',
+        snd: 'sn'
+    },
+    slot2: {
+        color: 'blue',
+        snd: 'bd'
+    },
+    slot3: {
+        color: 'green',
+        snd: 'hh1'
+    },
+    slot4: {
+        color: 'yellow',
+        snd: 'hh2'
+    }
+    // TODO add more slots, up to 11
+};
 
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
+});
+app.get('/coin.wav', function (req, res) {
+  res.sendfile(__dirname + '/coin.wav');
+});
+app.get('/sn.wav', function (req, res) {
+  res.sendfile(__dirname + '/sn.wav');
+});
+app.get('/hh1.wav', function (req, res) {
+  res.sendfile(__dirname + '/hh1.wav');
+});
+app.get('/hh2.wav', function (req, res) {
+  res.sendfile(__dirname + '/hh2.wav');
+});
+app.get('/bd.wav', function (req, res) {
+  res.sendfile(__dirname + '/bd.wav');
 });
 app.get('/super-secret-admin.html', function (req, res) {
   res.sendfile(__dirname + '/admin.html');
@@ -32,12 +57,8 @@ io.sockets.on('connection', function (socket) {
 
     // Listen to adm hits
 	socket.on('hit', function(data) {
-        // Get a ramdon color
-        var index = Math.floor(Math.random() * 10) % colors.lenght;
-
         // Tell the adm where the slot is
-		//io.sockets.emit('change-' + data.slot, { color: colors[index] });
-		io.sockets.emit('change-' + data.slot, { color: 'red' });
+		io.sockets.emit('change-' + data.slot, { color: slots[data.slot].color, snd: slots[data.slot].snd });
 	    setTimeout(function () {
             io.sockets.emit('change-' + data.slot, { color: '' });
         }, 200);

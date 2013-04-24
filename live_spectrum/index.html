@@ -105,10 +105,25 @@
 <script src="http://code.jquery.com/jquery-2.0.0.js"></script>
 <script>
 	$(document).ready(function() {
+
         // Load audio to be played on a hit
-        var audio = new Audio();
-        audio.src = 'coin.wav';
-        audio.load();
+        var audio = {};
+
+        audio['bd']= new Audio();
+        audio['bd'].src = 'bd.wav';
+        audio['bd'].load();
+
+        audio['hh1']= new Audio();
+        audio['hh1'].src = 'hh1.wav';
+        audio['hh1'].load();
+
+        audio['hh2']= new Audio();
+        audio['hh2'].src = 'hh2.wav';
+        audio['hh2'].load();
+
+        audio['sn']= new Audio();
+        audio['sn'].src = 'sn.wav';
+        audio['sn'].load();
 
 	    var socket = io.connect('http://localhost', 8080);
 
@@ -121,8 +136,8 @@
 
             // listen to change slot event
             socket.on('change-' + slot, function (data) {
-                if (data.color) {
-                    audio.play();
+                if (data.snd) {
+                    audio[data.snd].play();
                 }
                 $('body').css('background-color', data.color);
             });

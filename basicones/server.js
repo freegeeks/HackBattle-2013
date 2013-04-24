@@ -48,7 +48,9 @@ var Game = {
 
 		// Mark the loser
 		var socket = io.sockets.sockets[Game.currentSocketId];
-		socket.emit('change-color', { color: 'black' });
+		if (socket !== undefined) {
+			socket.emit('change-color', { color: 'black' });
+		}
 
 		// Send event to stop
 		io.sockets.emit('stop');
@@ -78,7 +80,13 @@ var Game = {
 server.listen(8080);
 
 app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/index.html');
+	res.sendfile(__dirname + '/index.html');
+});
+app.get('/channel.html', function (req, res) {
+	res.sendfile(__dirname + '/channel.html');
+});
+app.get('/music.mp3', function (req, res) {
+	res.sendfile(__dirname + '/music.mp3');
 });
 
 io.sockets.on('connection', function (socket) {

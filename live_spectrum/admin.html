@@ -1,0 +1,36 @@
+<html>
+<head>
+	<title>Live Spectrum - ADM</title>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="http://code.jquery.com/jquery-2.0.0.js"></script>
+<script>
+$(document).ready(function() {
+    var socket = io.connect('http://public.renangoncalves.com', 8080);
+
+    // Listen to adm new slot 
+    socket.on('adm', function (data) {
+        // add item representation to slot
+        $('#' + data.slot).append('<span>.</span>');
+    });
+    
+    // Clicking in the slot
+	$('.slot').bind('click', function() {
+
+        var slot = $(this).attr('id');
+
+        // send slot hit to the server
+		socket.emit('hit', { slot: slot });
+	});
+});
+</script>
+</head>
+<body>
+    <ul>
+        <li id="slot1" class="slot">Slot 1</li>
+        <li id="slot2" class="slot">Slot 2</li>
+        <li id="slot3" class="slot">Slot 3</li>
+        <li id="slot4" class="slot">Slot 4</li>
+    </ul>
+</body>
+</html>

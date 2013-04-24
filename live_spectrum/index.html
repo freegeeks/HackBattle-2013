@@ -1,6 +1,103 @@
 <html>
 <head>
 	<title>Live Spectrum</title>
+    <style>
+#slots {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 0;
+    background-color: #FFF;
+}
+
+#slots .slot {
+    position: absolute;
+    z-index: 1;
+    background-color: #000;
+    color: white;
+    font-size: 20px;
+}
+
+#slot1 {
+    top: 10px;
+    left: 10px;
+    width: 160px;
+    height: 60px;
+}
+
+#slot2 {
+    top: 10px;
+    left: 180px;
+    width: 160px;
+    height: 60px;
+}
+
+#slot3 {
+    top: 80px;
+    left: 10px;
+    width: 160px;
+    height: 60px;
+}
+
+#slot4 {
+    top: 80px;
+    left: 180px;
+    width: 160px;
+    height: 60px;
+}
+
+#slot5 {
+    top: 150px;
+    left: 10px;
+    width: 60px;
+    height: 160px;
+}
+
+#slot6 {
+    top: 150px;
+    left: 180px;
+    width: 160px;
+    height: 60px;
+}
+
+#slot7 {
+    top: 320px;
+    left: 10px;
+    width: 60px;
+    height: 160px;
+}
+
+#slot8 {
+    top: 320px;
+    left: 160px;
+    width: 60px;
+    height: 160px;
+}
+
+#slot9 {
+    top: 320px;
+    left: 250px;
+    width: 60px;
+    height: 160px;
+}
+
+#slot10 {
+    top: 490px;
+    left: 10px;
+    width: 60px;
+    height: 160px;
+}
+
+#slot11 {
+    top: 520px;
+    left: 180px;
+    width: 160px;
+    height: 60px;
+}
+
+    </style>
 </head>
 <body>
 
@@ -11,8 +108,9 @@
         // Load audio to be played on a hit
         var audio = new Audio();
         audio.src = 'coin.wav';
+        audio.load();
 
-	    var socket = io.connect('http://public.renangoncalves.com', 8080);
+	    var socket = io.connect('http://localhost', 8080);
 
         // Clicking on the slot
 		$('.slot').bind('click', function() {
@@ -23,7 +121,9 @@
 
             // listen to change slot event
             socket.on('change-' + slot, function (data) {
-                audio.play();
+                if (data.color) {
+                    audio.play();
+                }
                 $('body').css('background-color', data.color);
             });
 
@@ -33,12 +133,19 @@
 	});
 </script>
 
-    <ul id="slots">
-        <li id="slot1" class="slot">Slot 1</li>
-        <li id="slot2" class="slot">Slot 2</li>
-        <li id="slot3" class="slot">Slot 3</li>
-        <li id="slot4" class="slot">Slot 4</li>
-    </ul>
+    <div id="slots">
+        <div id="slot1" class="slot">Slot 1</div>
+        <div id="slot2" class="slot">Slot 2</div>
+        <div id="slot3" class="slot">Slot 3</div>
+        <div id="slot4" class="slot">Slot 4</div>
+        <div id="slot5" class="slot">Slot 5</div>
+        <div id="slot6" class="slot">Slot 6</div>
+        <div id="slot7" class="slot">Slot 7</div>
+        <div id="slot8" class="slot">Slot 8</div>
+        <div id="slot9" class="slot">Slot 9</div>
+        <div id="slot10" class="slot">Slot 10</div>
+        <div id="slot11" class="slot">Slot 11</div>
+    </div>
 
 </body>
 </html>

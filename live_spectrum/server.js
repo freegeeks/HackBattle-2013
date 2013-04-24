@@ -4,6 +4,17 @@ var app = require('express')()
 
 server.listen(8080);
 
+// Define some colors
+colors = [
+    'red',
+    'blue',
+    'orange',
+    'green',
+    'white',
+    'black',
+    'yellow'
+];
+
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
 });
@@ -21,7 +32,14 @@ io.sockets.on('connection', function (socket) {
 
     // Listen to adm hits
 	socket.on('hit', function(data) {
+        // Get a ramdon color
+        var index = Math.floor(Math.random() * 10) % colors.lenght;
+
         // Tell the adm where the slot is
+		//io.sockets.emit('change-' + data.slot, { color: colors[index] });
 		io.sockets.emit('change-' + data.slot, { color: 'red' });
+	    setTimeout(function () {
+            io.sockets.emit('change-' + data.slot, { color: '' });
+        }, 200);
 	});
 });

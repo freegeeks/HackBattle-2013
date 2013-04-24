@@ -31,6 +31,9 @@ var Game = {
 		// Resets colors
 		io.sockets.emit('change-color', { color: 'white' });
 
+		// Send event to start
+		io.sockets.emit('start');
+
 		// Start changing colors
 		Game.changeColor();
 
@@ -46,6 +49,9 @@ var Game = {
 		// Mark the loser
 		var socket = io.sockets.sockets[Game.currentSocketId];
 		socket.emit('change-color', { color: 'black' });
+
+		// Send event to stop
+		io.sockets.emit('stop');
 
 		// Reset current player
 		Game.currentSocketId = null;

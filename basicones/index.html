@@ -6,21 +6,44 @@
 
 <div id="notMe" style="float: left; width: 100%; height: 100%;"></div>
 
+<div id="dz-root"></div>
+<script src="http://cdn-files.deezer.com/js/min/dz.js"></script>
+
 <script src="/socket.io/socket.io.js"></script>
 <script src="http://code.jquery.com/jquery-2.0.0.js"></script>
 <script>
-  var socket = io.connect('http://public.renangoncalves.com', 8080);
-  socket.on('connect', function (data) {
-  	$('body').css('background-color', '');
-  });
-  socket.on('change-color', function (data) {
-  	$('body').css('background-color', data.color);
-  });
+	DZ.init({
+		appId  : '116585',
+		channelUrl : 'http://public.renangoncalves.com:8080/channel.html',
+		player : {
+			onload : function(){}
+		}
+	});
 
-  $(document).ready(function() {
-	  $('#notMe, body').bind('click', function() {
-	  	socket.emit('not-me', { not: 'me' });
-	  });
+	var socket = io.connect('http://public.renangoncalves.com', 8080);
+	socket.on('connect', function (data) {
+		$('body').css('background-color', '');
+	});
+	socket.on('start', function (data) {
+		// Load Track
+		DZ.player.playAlbum(302127);
+
+		// Play
+		DZ.player.setVolume(100);
+		DZ.player.seek(0);
+		DZ.player.play();
+	});
+	socket.on('stop', function (data) {
+		DZ.player.pause();
+	});
+	socket.on('change-color', function (data) {
+		$('body').css('background-color', data.color);
+	});
+
+	$(document).ready(function() {
+		$('#notMe, body').bind('click', function() {
+			socket.emit('not-me', { not: 'me' });
+		});
 	});
 </script>
 

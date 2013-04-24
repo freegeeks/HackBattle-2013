@@ -103,6 +103,9 @@ io.sockets.on('connection', function (socket) {
 	// Start game
 	socket.on('start', function(data) {
 		console.log('start');
+		if (Game.started) {
+			return false;
+		}
 		Game.start();
 	});
 });

@@ -124,9 +124,9 @@ var Project = {
 			var members = Member.search(project.skills);
 
 			if (project.memberId === memberId) {
-				project.members = 0;
+                project.members = [];
 				for (var key in members) {
-					project.members++;
+					project.members.push(members[key]);
 				}
 
 				projects[id] = project;

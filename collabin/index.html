@@ -352,7 +352,27 @@ function onLinkedInAuth() {
             }
             ul.find('.projectname').html(data[key].name);
             ul.find('.total').html(data[key].duration + 'hrs');
-            ul.find('.projectskill').html('Matches: ' + data[key].members);
+            ul.find('.projectskill').html('Matches: ' + data[key].members.length);
+            if (data[key].members.length) {
+                ul.find('.projectskill').css({ cursor: 'pointer' }).click(function () {
+                    var h2 = $('<h2 class="bg2 titulo blue">VOLUNTEERS <span class="total">0</span><i class="vol"></i></h2>');
+                    $(this).parent().after(h2);
+
+                    for (key2 in data[key].members) {
+                        var member = data[key].members[key2];
+                        total++;
+                        var ul = $('<ul><li class="projectowner"><img src=""></li><li class="projectname"></li><li class="projecskill blue"></li></ul>');
+                        if (member.pictureUrl) {
+                            ul.find('.projectowner img').attr('src', member.pictureUrl);
+                        }
+                        ul.find('.projectname').html(member[key].firstName + ' ' + member[key].lastName);
+                        ul.find('.projectskill').html(member[key].skills.join());
+
+                        $(this).parent().next().after(h2);
+                    }
+                    
+                });
+            }
             $('.mynew').closest('h2').after(ul);
         }
 
@@ -434,8 +454,6 @@ function onLinkedInAuth() {
 	<h2 class="bg2 titulo blue">PROJECTS <span class="total">0</span><i class="new"></i></h2>
     <!-- Projects -->
 	
-<!-- Professional -->
-	<h2 class="bg2 titulo blue">VOLUNTEERS <span class="total">0</span><i class="vol"></i></h2>
 </div>
 
 <!-- Dashboard -->

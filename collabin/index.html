@@ -1,7 +1,235 @@
-<!doctype html>
-<html>
-<head>
-<title>colLABin</title>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+ 	<meta charset="utf-8">
+    <title>collabIN</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="collabIN">
+    <meta name="author" content="@re2005">
+     <link rel="shortcut icon" href="img/favicon.png">
+<style>
+/*
+ ______     ______     ______    
+/\  == \   /\  == \   /\  == \   
+\ \  __<   \ \  __<   \ \  __<   
+ \ \_\ \_\  \ \_\ \_\  \ \_\ \_\ 
+  \/_/ /_/   \/_/ /_/   \/_/ /_/ 
+                                 
+CSS Style - Hacher Battle
+                                                              
+*/
+
+/* Eric Meyer's Reset CSS v2.0 - http://cssreset.com */
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{border:0;font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:none}table{border-collapse:collapse;border-spacing:0}
+/* Eric Meyer's Reset CSS v2.0 - http://cssreset.com */
+
+
+.hhh{
+	display: none;
+}
+
+a:hover
+{
+	opacity: .7;
+}
+/* bases */
+html {
+	height: 100%;
+	background: url('../img/bg.png') repeat;
+}
+body {
+	width: 100%;
+	height: 100%;
+}
+body *{
+	font-family: 'Dosis', Helvetica, Arial, sans-serif;
+}
+.wrap {
+	width: 344px;
+	height: 740px;
+	margin: auto;
+	display: table;
+	background: url('../img/iPhone5.png') no-repeat center top;
+}
+header {
+	width: 252px;
+	height: 447px;
+	background: url('../img/bg_dark.png') repeat;
+	margin: 165px 0 0 49px;
+	display: table;
+	overflow: auto; /* For browsers that can't do overflow-y */
+	overflow-y: scroll
+}
+
+nav {
+	display: block;
+	float: left;
+	height: 450px;
+	overflow: auto;
+	width: 252px;
+}
+nav .content {
+	float: left;
+}
+
+.login {
+	float: left;
+	width: 252px;
+}
+.login h1 {
+	background: url('../img/login_sprites.png') no-repeat center top;
+	width: 100%;
+	height: 315px;
+	float: left;
+	clear: both;
+}
+.login a{
+	float: left;
+	background: url('../img/login_sprites.png') no-repeat center bottom;
+	width: 100%;
+	height: 65px;
+	clear: both;
+	margin-top: 40px;
+}
+.clear{
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.bg2 {
+	background: url('../img/bg_dark2.png') repeat;
+}
+
+h1
+{
+	background: url('../img/dash_sprites.png') no-repeat center top;
+	width: 100%;
+	height: 80px;
+	float: left;
+	clear: both;
+}
+
+.newp {
+	background: url('../img/dash_sprites.png') no-repeat center -85px, url('../img/bg_dark2.png') repeat;
+	width: 45%;
+	height: 110px;
+	float: left;
+}
+
+.coll {
+	background: url('../img/dash_sprites.png') no-repeat center -198px, url('../img/bg_dark2.png') repeat;
+	width: 45%;
+	height: 110px;
+	float: right;
+}
+.blue {
+	color: #4ecaff;
+}
+.titulo {
+	padding: 3% 5%;
+	margin-top: 20px;
+	float: left;
+	width: 90%;
+	text-shadow: 1px 1px 1px #000000;
+	font-size: 1.2em;
+}
+.new {
+	background: url('../img/icons.png') no-repeat top left;
+	width: 50px;
+	height: 30px;
+	float: right;
+	display: block;
+	margin-top: -6px;
+}
+.vol {
+	background: url('../img/icons.png') no-repeat top right;
+	width: 50px;
+	height: 30px;
+	float: right;
+	display: block;
+	margin-top: -6px;
+
+}
+
+ul{
+	float: left;
+	background: #ccc;
+	width: 90%;
+	padding: 15px 5%;
+	background: url('../img/bg_dark3.png') repeat;
+	border-top: 1px #060606 solid;
+}
+.total{
+	color: #8afe4b;
+	padding: 0 5px 0 10px;
+	text-shadow: 1px 1px 1px #000000;
+	font-size: .8em;
+}
+.projectowner img, .no-img{
+	background: #363636;
+	border-radius: 36px;
+	border: 1px #ccc solid;
+	width: 30px;
+	height: 30px;
+	float: left;
+	margin-right: 14px;
+	padding: 4px;
+}
+
+.projectname{
+	color: #fff;
+	font-size: 110%;
+}
+.projecskill{
+font-size: 80%;
+margin-top: 5px;
+	
+}
+
+.new-project .newp{
+	background: url("../img/dash_sprites.png") no-repeat scroll center -85px, url("../img/bg_dark2.png") repeat scroll 0 0 transparent;
+	float: left;
+	height: 110px;
+	width: 100%;
+		
+}
+
+
+@media (max-width: 767px) {
+	html {
+		height: 100%;
+		background: url('../img/bg_dark.png') repeat;
+	}
+	.wrap {
+		background: none;
+		width: 100%;
+		float: left;
+	}
+	header {
+		width: 100%;
+		height: 447px;
+		background: url('../img/bg_dark.png') repeat;
+		display: table;
+		margin: 0;
+	}
+	nav{
+		height: 447px;
+		background: url('../img/bg_dark.png') repeat;
+		display: table;
+		width: 100%;
+	}
+	.login {
+		float: left;
+		width: 252px;
+	}
+	.projectname .total{
+		float: right;
+	}
+}
+</style>
+
+<link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="http://code.jquery.com/jquery-2.0.0.js"></script>
@@ -40,9 +268,80 @@ function onLinkedInAuth() {
 
 <body>
 
+<div class="wrap">
+	<header>
+	<nav>
+	
+<!-- login -->
+	<div class="login hhh">
+	<h1 class="clear">collabIN</h1>
+	<a href="#" class="clear">login</a>
+
 <script type="in/Login" data-onAuth="onLinkedInAuth">
 Hello, <?js= firstName ?> <?js= lastName ?>.
 </script>
+
+	</div>
+	
+	
+<!-- Dashboard -->
+<div class="dash hhh">
+	<h1 class="clear">collabIN</h1>
+	<a href="#" class="clear newp bg2">new project</a>
+	<a href="#" class="clear coll bg2">collaborate</a>
+	
+
+<!-- Projects -->
+	<h2 class="bg2 titulo blue">PROJECTS <span class="total">5</span><i class="new"></i></h2>
+		<!-- Projects -->
+	<ul>
+		<li class="projectowner"><img src="http://payload.cargocollective.com/1/0/3397/466613/final-collab-logo.jpg"></li>
+		<li class="projectname">#1 Project Name<span class="total">4 wks</span></li>
+		<li class="projecskill blue">#1 Skill, #2 Skill, #3 Skill</li>
+	</ul>
+	<ul>
+		<li class="projectowner no-img clear"></li>
+		<li class="projectname">#1 Project Name<span class="total">2 wks</span></li>
+		<li class="projecskill blue">#1 Skill, #2 Skill, #3 Skill</li>
+	</ul>	
+	<ul>
+		<li class="projectowner"><img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQOsEvhHTDzB_odncFztVqZvjgIn4ZCaTdPAjTRig-SYZ987tVYxg"></li>
+		<li class="projectname">#1 Project Name<span class="total">6 wks</span></li>
+		<li class="projecskill blue">#1 Skill, #2 Skill, #3 Skill</li>
+	</ul>	
+	
+<!-- Professional -->
+	<h2 class="bg2 titulo blue">VOLUNTEERS <span class="total">32</span><i class="vol"></i></h2>
+		<ul>
+		<li class="projectowner"><img src="https://www.gravatar.com/avatar/bdd950cb95810dc774a7836d86ef2038?s=160&d=https://geekli.st/images/missing.png&r=pg"></li>
+		<li class="projectname">Renato Cavallari</li>
+		<li class="projecskill blue">#1 Skill, #2 Skill, #3 Skill</li>
+	</ul>
+	<ul>
+		<li class="projectowner"><img src="https://secure.gravatar.com/avatar/eeb0b9b3a6040ce0009943c564bf5500?s=420&d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png"></li>
+		<li class="projectname">Renan Gonçalves</li>
+		<li class="projecskill blue">#1 Skill, #2 Skill, #3 Skill</li>
+	</ul>
+	<ul>
+		<li class="projectowner"><img src="http://m.c.lnkd.licdn.com/mpr/mpr/shrink_200_200/p/1/000/0ef/135/1a1a721.jpg"></li>
+		<li class="projectname">Renato Cardoso</li>
+		<li class="projecskill blue">#1 Skill, #2 Skill, #3 Skill</li>
+	</ul>	
+</div>
+
+
+<!-- Dashboard -->
+<div class="new-project">
+	<h1 class="clear">collabIN</h1>
+	<h2 class="clear newp bg2">collabIN</h2>
+
+</div>
+	
+	
+	</nav>
+	</header>
+</div>
+
 
 </body>
 

@@ -109,7 +109,7 @@ $(document).ready(function() {
     audio.src = 'coin.wav';
     audio.load();
 
-    var socket = io.connect('http://localhost', 8080);
+    var socket = io.connect('http://public.renangoncalves.com', 8080);
 
     // Listen to adm new slot 
     socket.on('adm', function (data) {

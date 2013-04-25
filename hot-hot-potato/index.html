@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-	<title>Hot Hot Potato</title>
+    <title>Hot Hot Potato</title>
 <style>
 /*
  ______     ______     ______    
@@ -19,36 +19,36 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 
 /* bases */
 html {
-	height: 100%;
-	background-color: gray;
+    height: 100%;
+    background-color: gray;
 }
 body {
-	width: 100%;
+    width: 100%;
 }
 body *{
-	font-family: 'Helvetica', Arial, sans-serif;
+    font-family: 'Helvetica', Arial, sans-serif;
 }
 header {
-	width: 80%;
-	display: table;
-	margin: auto;
+    width: 80%;
+    display: table;
+    margin: auto;
 }
 h1 {
-	float: left;
-	display: block;
-	width: 100%;
-	font-size: 3em;
+    float: left;
+    display: block;
+    width: 100%;
+    font-size: 3em;
 }
 nav {
-	float: left;
-	padding: 5% 10%;
-	color: #fff;
-	text-align: center;
-	width: 80%;
+    float: left;
+    padding: 5% 10%;
+    color: #fff;
+    text-align: center;
+    width: 80%;
 }
 nav img {
-	margin: auto;
-	display: table;
+    margin: auto;
+    display: table;
 }
 
 .button {
@@ -83,11 +83,15 @@ text-transform: uppercase;
   box-shadow: inset 0 1px 10px #ee5b5b, 0 1px 0 #4d1d1d, 0 2px 0 #531f1f, 0 4px 3px 0 #111111;
   margin: 16px 0 10px 0;}
 .button.no {
-	border-radius: 200px;
-	width: 200px;
-	height: 90px;
-	padding-top: 90px;
-	display:none;
+    border-radius: 200px;
+    width: 200px;
+    height: 90px;
+    padding-top: 90px;
+    display:none;
+}
+
+#showTrack {
+    display: none;
 }
 
 @media (max-width: 767px) {
@@ -106,24 +110,22 @@ text-transform: uppercase;
 <a href="javascript:;" id="notMe" class="button no">NO!!!</a>
 
 <div style="display:none;">
-	<audio src="http://cdn-preview-b.deezer.com/stream/b18965a0efe1a8f312ff415c39397a51-1.mp3" id="audio" style="display:none;">
+    <audio src="http://cdn-preview-b.deezer.com/stream/b18965a0efe1a8f312ff415c39397a51-1.mp3" id="audio" style="display:none;">
 </div>
 
-<div id="dz-root"></div>
+<div id="showTrack" class="well"></div>
 
 </nav>
 </header>
 
-
-<script src="http://cdn-files.deezer.com/js/min/dz.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="http://code.jquery.com/jquery-2.0.0.js"></script>
 <script>
-	var socket;
+    var socket;
 
-	$(document).ready(function() {
+    $(document).ready(function() {
 
-		var bind = function () {
+        var bind = function () {
             socket = io.connect('http://public.renangoncalves.com', 8080);
             socket.on('connect', function (data) {
                 $('html').css('background-color', 'gray');
@@ -134,12 +136,14 @@ text-transform: uppercase;
                 audio.play();
 
                 $('#notMe').css('display', 'inline-block');
+                $('#showTrack').hide();
             });
             socket.on('stop', function (data) {
                 var audio = $('#audio')[0];
                 audio.pause();
 
                 $('#notMe').hide();
+                $('#showTrack').show();
             });
             socket.on('change-color', function (data) {
                 $('html').css('background-color', data.color);
@@ -150,15 +154,15 @@ text-transform: uppercase;
             });
         };
 
-		$('#wantPlay').bind('click', function() {
-			audio.play();
-			audio.pause();
+        $('#wantPlay').bind('click', function() {
+            audio.play();
+            audio.pause();
 
             bind();
 
-			// Hide from screen
-			$('#wantPlay').hide();
-		});
+            // Hide from screen
+            $('#wantPlay').hide();
+        });
 
         var audio = $('#audio')[0];
         audio.controls = 'controls';
@@ -166,15 +170,24 @@ text-transform: uppercase;
 
         // Call API
         $.ajax('http://api.deezer.com/2.0/album/302127?output=jsonp', {
-        	dataType: 'jsonp',
-        	success: function(data) {
-        		var tracks = data.tracks.data;
-        		var track = tracks[Math.floor(Math.random() * tracks.length)];
-        		audio.src = track.preview;
-        		audio.load();
-        	}
+            dataType: 'jsonp',
+            success: function(data) {
+                var tracks = data.tracks.data;
+                var track = tracks[Math.floor(Math.random() * tracks.length)];
+                
+                audio.src = track.preview;
+                audio.load();
+
+                var a = $('<a target="_blank" href="#"><img src="" /> <h3>name</h3><span>date</span></a>');
+                a.attr('href', data.link);
+                a.find('img').attr('src', data.cover);
+                a.find('h3').html(data.title);
+                a.find('span').html(data.artist.name + ' | ' + data.release_date);
+
+                $('#showTrack').html(a);
+            }
         });
-	});
+    });
 </script>
 
 </body>

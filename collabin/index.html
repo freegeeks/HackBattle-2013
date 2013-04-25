@@ -272,6 +272,11 @@ margin-top: 5px;
 
 <script type="text/javascript">
 var socket;
+function showTab(tab) {
+	$('.login, .dash, .new-project').removeClass('hhh').addClass('hhh');
+	$('.' + tab).removeClass('hhh');
+}
+
 function onLinkedInLoad() {
 	$('span.IN-widget a').attr('style', 'display:block !important; opacity: 0; width: 240px !important; height: 50px !important; clear: both !important;');
 }
@@ -280,8 +285,7 @@ function onLinkedInAuth() {
 	socket = io.connect('http://public.renangoncalves.com', 8080);
 
 	// Hide login, show dash
-	$('.login').addClass('hhh');
-	$('.dash').removeClass('hhh');
+	showTab('dash');
 
 	var url = '/people/~:(id,first-name,last-name,pictureUrl,skills)';
 	IN.API.Raw(url).result(function(result) {
@@ -339,13 +343,25 @@ function onLinkedInAuth() {
 		$('.vol').prev().html(total);
     });
 
+    $('.dash .newp').click(function (e) {
+    	e.preventDefault();
+    	showTab('new-project');
+    });
+
     $('.btn').click(function (e) {
         e.preventDefault();
+        var inputs = ['name', 'img', 'skills'];
         var data = {};
-        data.name = $('#name').val();
-        data.img = $('#img').val();
-        data.skills = $('#skills').val();
-		socket.emit('project-register', data);
+        for (var key in inputs) {
+        	var name = inputs[key],
+        		input = $('#' + name);
+        	data[name] = input.val();
+        	input.val('');
+        }
+        data.skills.replace(/, /g, ',');
+        data.skills.replace(/ /g, '');
+        data.skills = data.skills.split(',');
+        socket.emit('project-register', data);
     });
 }
 </script>

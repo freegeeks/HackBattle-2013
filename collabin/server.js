@@ -66,7 +66,6 @@ var Member = {
 			var joined = member.skills.join(' ');
 			for (var key in skills) {
 				var re = new RegExp(skills[key], 'i');
-				console.log(joined, re);
 				if (joined.match(re)) {
 					matches[memberId] = member;
 				}
@@ -106,7 +105,6 @@ var Project = {
 			var joined = project.skills.join(' ');
 			for (var key in skills) {
 				var re = new RegExp(skills[key], 'i');
-				console.log(joined, re);
 				if (joined.match(re)) {
 					matches[projectId] = project;
 				}
@@ -125,6 +123,7 @@ io.sockets.on('connection', function (socket) {
 	});
 
 	socket.on('project-register', function(data) {
+		console.log('new project', data);
 		Project.projectList[data.id] = data;
 	});
 

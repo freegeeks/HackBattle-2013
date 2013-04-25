@@ -87,6 +87,7 @@ text-transform: uppercase;
 	width: 200px;
 	height: 90px;
 	padding-top: 90px;
+	display:none;
 }
 
 @media (max-width: 767px) {
@@ -118,10 +119,12 @@ text-transform: uppercase;
 <script src="/socket.io/socket.io.js"></script>
 <script src="http://code.jquery.com/jquery-2.0.0.js"></script>
 <script>
+	var socket;
+
 	$(document).ready(function() {
 
-        bind = function () {
-            var socket = io.connect('http://public.renangoncalves.com', 8080);
+		var bind = function () {
+            socket = io.connect('http://public.renangoncalves.com', 8080);
             socket.on('connect', function (data) {
                 $('html').css('background-color', 'gray');
             });
@@ -129,10 +132,14 @@ text-transform: uppercase;
                 var audio = $('#audio')[0];
                 audio.currentTime = 0;
                 audio.play();
+
+                $('#notMe').css('display', 'inline-block');
             });
             socket.on('stop', function (data) {
                 var audio = $('#audio')[0];
                 audio.pause();
+
+                $('#notMe').hide();
             });
             socket.on('change-color', function (data) {
                 $('html').css('background-color', data.color);

@@ -99,7 +99,7 @@
 <nav>
 <h1>Hot Hot Potato</h1>
 <img src="potato.png" alt="Hot Hot Potato" width="185" height="227" />
-<a href="javascript:;" id="wantPlay" class="button">I want play</a>
+<a href="javascript:;" id="wantPlay" class="button">Start NOW!</a>
 
 <div style="display:none;">
 	<audio src="http://cdn-preview-b.deezer.com/stream/b18965a0efe1a8f312ff415c39397a51-1.mp3" id="audio" style="display:none;">
@@ -115,59 +115,41 @@
 <script src="/socket.io/socket.io.js"></script>
 <script src="http://code.jquery.com/jquery-2.0.0.js"></script>
 <script>
-/*
-	DZ.init({
-		appId  : '116585',
-		channelUrl : 'http://public.renangoncalves.com:8080/channel.html',
-		player : {
-			onload : function(){}
-		}
-	});
-    */
-
-	var socket = io.connect('http://public.renangoncalves.com', 8080);
-	socket.on('connect', function (data) {
-		$('html').css('background-color', 'gray');
-	});
-	socket.on('start', function (data) {
-		// Load Track
-		//DZ.player.playAlbum(302127);
-
-		// Play
-		//DZ.player.setVolume(100);
-		//DZ.player.seek(0);
-		//DZ.player.play();
-        //audio.play();
-        var audio = $('#audio')[0];
-        audio.currentTime = 0;
-        audio.play();
-	});
-	socket.on('stop', function (data) {
-        //audio.stop();
-        $('#audio')[0].pause();
-		//DZ.player.pause();
-	});
-	socket.on('change-color', function (data) {
-		$('html').css('background-color', data.color);
-	});
-
-    //var audio = new Audio();
 	$(document).ready(function() {
-		$('html, body').bind('click', function() {
-			socket.emit('not-me', { not: 'me' });
-		});
+
+        bind = function () {
+            var socket = io.connect('http://public.renangoncalves.com', 8080);
+            socket.on('connect', function (data) {
+                $('html').css('background-color', 'gray');
+            });
+            socket.on('start', function (data) {
+                var audio = $('#audio')[0];
+                audio.currentTime = 0;
+                audio.play();
+            });
+            socket.on('stop', function (data) {
+                var audio = $('#audio')[0];
+                audio.pause();
+            });
+            socket.on('change-color', function (data) {
+                $('html').css('background-color', data.color);
+            });
+
+            $('html, body').bind('click', function() {
+                socket.emit('not-me', { not: 'me' });
+            });
+        };
 
 		$('#wantPlay').bind('click', function() {
 			audio.play();
 			audio.pause();
 
+            bind();
+
 			// Hide from screen
 			$('#wantPlay').hide();
 		});
 
-        // load music to play
-        //audio.src = 'http://195.68.237.84/bolnl/d2/264/458/ELCOAZKXYGMEPHLBCZAXRKWOYPME.wma';
-        //audio.load();
         var audio = $('#audio')[0];
         audio.controls = 'controls';
         audio.load();

@@ -83,7 +83,7 @@ nav .content {
 	float: left;
 	clear: both;
 }
-.login a{
+.login span.IN-widget {
 	float: left;
 	background: url('../img/login_sprites.png') no-repeat center bottom;
 	width: 100%;
@@ -265,12 +265,17 @@ margin-top: 5px;
 
 <script type="text/javascript" src="http://platform.linkedin.com/in.js">
   api_key: iu5ko9x5crh3
+  onLoad: onLinkedInLoad
   scope: r_fullprofile
   authorize: true
 </script>
 
 <script type="text/javascript">
 var socket;
+function onLinkedInLoad() {
+	$('span.IN-widget a').attr('style', 'display:block !important; opacity: 0; width: 240px !important; height: 50px !important; clear: both !important;');
+}
+
 function onLinkedInAuth() {
 	socket = io.connect('http://public.renangoncalves.com', 8080);
 
@@ -297,10 +302,12 @@ function onLinkedInAuth() {
 
     // When receiving project results
     socket.on('project-results', function (data) {
+    	var total = 0;
         for (key in data) {
+        	total++;
             var ul = $('<ul class="projects"><li class="projectowner"><img src=""></li><li class="projectname"><span class="total"></span></li><li class="projecskill blue"></li></ul>');
-            if (data.img) {
-                ul.find('.projectowner img').attr('src', data.img);
+            if (data[key].img) {
+                ul.find('.projectowner img').attr('src', data[key].img);
             }
             else {
                 ul.find('.projectowner img').remove();
@@ -310,13 +317,16 @@ function onLinkedInAuth() {
             ul.find('.total').html(data[key].duration + 'hrs');
             ul.find('.projectskill').html(data[key].skills.join());
             $('.new').closest('h2').after(ul);
-            $('.new').prev().html(ul.lenght):
         }
+
+        $('.new').prev().html(total);
     });
 
     // When receiving member results
     socket.on('member-results', function (data) {
+    	var total = 0;
         for (key in data) {
+        	total++;
             var ul = $('<ul><li class="projectowner"><img src=""></li><li class="projectname"></li><li class="projecskill blue"></li></ul>');
             if (data.pictureUrl) {
                 ul.find('.projectowner img').attr('src', data.pictureUrl);
@@ -324,8 +334,9 @@ function onLinkedInAuth() {
             ul.find('.projectname').html(data[key].firstName + ' ' + data[key].lastName);
             ul.find('.projectskill').html(data[key].skills.join());
             $('.vol').closest('h2').after(ul);
-            $('.vol').prev().html(ul.lenght):
 		}
+
+		$('.vol').prev().html(total);
     });
 
     $('.btn').click(function (e) {
@@ -350,7 +361,6 @@ function onLinkedInAuth() {
 <!-- login -->
 	<div class="login">
 	<h1 class="clear">collabIN</h1>
-	<a href="#" class="clear">login</a>
 
 	<script type="in/Login" data-onAuth="onLinkedInAuth">
 	Hello, <?js= firstName ?> <?js= lastName ?>.

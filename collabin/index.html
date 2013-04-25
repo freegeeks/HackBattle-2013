@@ -3,16 +3,44 @@
 <head>
 <title>colLABin</title>
 
+<script src="/socket.io/socket.io.js"></script>
+<script src="http://code.jquery.com/jquery-2.0.0.js"></script>
+
 <script type="text/javascript" src="http://platform.linkedin.com/in.js">
-  api_key: 'iu5ko9x5crh3'
+  api_key: iu5ko9x5crh3
+  scope: r_fullprofile
   authorize: true
+</script>
+
+<script type="text/javascript">
+var socket;
+function onLinkedInAuth() {
+	socket = io.connect('http://public.renangoncalves.com', 8080);
+
+	var url = '/people/~:(id,first-name,last-name,pictureUrl,skills)';
+	IN.API.Raw(url).result(function(result) {
+		var data = {
+			id: result.id,
+			firstName: result.firstName,
+			lastName: result.lastName,
+			pictureUrl: result.pictureUrl,
+			skills: []
+		};
+		for (var key in result.skills.values) {
+			var skill = result.skills.values[key];
+			data.skills.push(skill.skill.name);
+		}
+
+		socket.emit('member-register', data);
+	});
+}
 </script>
 
 </head>
 
 <body>
 
-<script type="in/Login">
+<script type="in/Login" data-onAuth="onLinkedInAuth">
 Hello, <?js= firstName ?> <?js= lastName ?>.
 </script>
 

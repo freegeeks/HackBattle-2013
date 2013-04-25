@@ -365,19 +365,20 @@ function onLinkedInAuth() {
             if (data[key].members.length) {
                 ul.find('.projectskill').css({ cursor: 'pointer' }).click(function () {
                     var h2 = $('<h2 class="bg2 titulo blue">VOLUNTEERS <span class="total">0</span><i class="vol"></i></h2>');
+                    h2.find('.total').html(data[key].members.length);
+
                     $(this).parent().after(h2);
 
                     for (key2 in data[key].members) {
                         var member = data[key].members[key2];
-                        total++;
                         var ul = $('<ul><li class="projectowner"><img src=""></li><li class="projectname"></li><li class="projecskill blue"></li></ul>');
                         if (member.pictureUrl) {
                             ul.find('.projectowner img').attr('src', member.pictureUrl);
                         }
-                        ul.find('.projectname').html(member[key].firstName + ' ' + member[key].lastName);
-                        ul.find('.projectskill').html(member[key].skills.join());
+                        ul.find('.projectname').html(member.firstName + ' ' + member.lastName);
+                        ul.find('.projectskill').html(member.skills.join());
 
-                        $(this).parent().next().after(h2);
+                        $(this).parent().next().after(ul);
                     }
                     
                 });

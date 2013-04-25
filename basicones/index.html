@@ -11,7 +11,7 @@
 	 \ \_\ \_\  \ \_\ \_\  \ \_\ \_\ 
 	  \/_/ /_/   \/_/ /_/   \/_/ /_/ 
 	                                 
-	CSS Style - Hacher Battle
+	CSS Style - Hacker Battle
 	                                                              
 	*/
 	
@@ -23,7 +23,7 @@
 	/* bases */
 	html {
 		height: 100%;
-		background: url('bg.png') repeat;
+		background-color: gray;
 	}
 	body {
 		width: 100%;
@@ -98,10 +98,12 @@
 <header>
 <nav>
 <h1>Hot Hot Potato</h1>
-	<img src="potato.png" alt="Hot Hot Potato" width="185" height="227" />
-	<a href="javascript:;" id="wantPlay" class="button">I want play</a>
-	<div id="notMe" style="float: left; width: 100%; height: 100%;"></div>
-	<audio src="http://cdn-preview-b.deezer.com/stream/b18965a0efe1a8f312ff415c39397a51-1.mp3" id="audio">
+<img src="potato.png" alt="Hot Hot Potato" width="185" height="227" />
+<a href="javascript:;" id="wantPlay" class="button">I want play</a>
+
+<div style="display:none;">
+	<audio src="http://cdn-preview-b.deezer.com/stream/b18965a0efe1a8f312ff415c39397a51-1.mp3" id="audio" style="display:none;">
+</div>
 
 <div id="dz-root"></div>
 
@@ -125,7 +127,7 @@
 
 	var socket = io.connect('http://public.renangoncalves.com', 8080);
 	socket.on('connect', function (data) {
-		$('body').css('background-color', '');
+		$('html').css('background-color', 'gray');
 	});
 	socket.on('start', function (data) {
 		// Load Track
@@ -146,18 +148,21 @@
 		//DZ.player.pause();
 	});
 	socket.on('change-color', function (data) {
-		$('body').css('background-color', data.color);
+		$('html').css('background-color', data.color);
 	});
 
     //var audio = new Audio();
 	$(document).ready(function() {
-		$('#notMe, body').bind('click', function() {
+		$('html, body').bind('click', function() {
 			socket.emit('not-me', { not: 'me' });
 		});
 
 		$('#wantPlay').bind('click', function() {
 			audio.play();
 			audio.pause();
+
+			// Hide from screen
+			$('#wantPlay').hide();
 		});
 
         // load music to play

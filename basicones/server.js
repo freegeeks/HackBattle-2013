@@ -29,7 +29,7 @@ var Game = {
 		Game.lockedPlayerList = Game.playerList.clone();
 
 		// Resets colors
-		io.sockets.emit('change-color', { color: 'white' });
+		io.sockets.emit('change-color', { color: 'gray' });
 
 		// Send event to start
 		io.sockets.emit('start');
@@ -85,8 +85,11 @@ app.get('/', function (req, res) {
 app.get('/channel.html', function (req, res) {
 	res.sendfile(__dirname + '/channel.html');
 });
-app.get('/music.mp3', function (req, res) {
-	res.sendfile(__dirname + '/music.mp3');
+app.get('/bg.png', function (req, res) {
+	res.sendfile(__dirname + '/bg.png');
+});
+app.get('/potato.png', function (req, res) {
+	res.sendfile(__dirname + '/potato.png');
 });
 
 io.sockets.on('connection', function (socket) {
@@ -102,7 +105,7 @@ io.sockets.on('connection', function (socket) {
 	socket.on('not-me', function(data) {
 		console.log('not me');
 		if (socket.id === Game.currentSocketId) {
-			socket.emit('change-color', { color: 'white' });
+			socket.emit('change-color', { color: 'gray' });
 
 			Game.changeColor();
 		}

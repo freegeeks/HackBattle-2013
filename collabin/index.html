@@ -310,6 +310,7 @@ function onLinkedInAuth() {
             ul.find('.total').html(data[key].duration + 'hrs');
             ul.find('.projectskill').html(data[key].skills.join());
             $('.new').closest('h2').after(ul);
+            $('.new').prev().html(ul.lenght):
         }
     });
 
@@ -323,6 +324,7 @@ function onLinkedInAuth() {
             ul.find('.projectname').html(data[key].firstName + ' ' + data[key].lastName);
             ul.find('.projectskill').html(data[key].skills.join());
             $('.vol').closest('h2').after(ul);
+            $('.vol').prev().html(ul.lenght):
 		}
     });
 
@@ -365,11 +367,11 @@ function onLinkedInAuth() {
 	
 
 <!-- Projects -->
-	<h2 class="bg2 titulo blue">PROJECTS <span class="total">5</span><i class="new"></i></h2>
+	<h2 class="bg2 titulo blue">PROJECTS <span class="total">0</span><i class="new"></i></h2>
     <!-- Projects -->
 	
 <!-- Professional -->
-	<h2 class="bg2 titulo blue">VOLUNTEERS <span class="total">32</span><i class="vol"></i></h2>
+	<h2 class="bg2 titulo blue">VOLUNTEERS <span class="total">0</span><i class="vol"></i></h2>
 </div>
 
 <!-- Dashboard -->

@@ -81,13 +81,14 @@ var Member = {
 var Project = {
 	projectList: {
 		1: {
+			memberId: 'p46mKSli2j',
 			name: 'PHP Test',
 			duration: 24 * 21,
 			skills: ['PHP', 'Apache', 'MySQL']
 		},
 
 		2: {
-            img: 'https://www.gravatar.com/avatar/bdd950cb95810dc774a7836d86ef203',
+			img: 'https://www.gravatar.com/avatar/bdd950cb95810dc774a7836d86ef203',
 			name: 'JavaScript Test',
 			duration: 40,
 			skills: ['JavaScript']
@@ -100,8 +101,6 @@ var Project = {
 			skills: ['photoshop']
 		}
 	},
-
-    myProjectList: {},
 
 	search: function(skills) {
 		var matches = {};
@@ -116,6 +115,24 @@ var Project = {
 			}
 		}
 		return matches;
+	},
+
+	fromMember: function(memberId) {
+		var projects = {};
+		for (var id in Project.projectList) {
+			var project = Project.projectList[id];
+			var members = Member.search(project.skills);
+
+			if (project.memberId === memberId) {
+				project.members = 0;
+				for (var key in members) {
+					project.members++;
+				}
+
+				projects[id] = project;
+			}
+		}
+		return projects;
 	}
 };
 
@@ -127,17 +144,24 @@ io.sockets.on('connection', function (socket) {
 
         var projects = Project.search(data.skills);
         socket.emit('project-results', projects);
-        socket.emit('myproject-results', Project.myProjectList);
+        
+        var myProjects = Project.fromMember(data.id);
+        socket.emit('myproject-results', myProjects);
 	});
 
 	socket.on('project-register', function(data) {
+		var memberId = Member.mapping[socket.id];
+
 		data.id = uuid.v4();
-		Project.myProjectList[data.id] = data;
+		data.memberId = memberId;
 		Project.projectList[data.id] = data;
 
-		var member = Member.memberList[Member.mapping[socket.id]];
+		var member = Member.memberList[memberId];
 		var projects = Project.search(member.skills);
         socket.emit('project-results', projects);
+
+		var myProjects = Project.fromMember(memberId);        
+        socket.emit('myproject-results', myProjects);
 	});
 
 });

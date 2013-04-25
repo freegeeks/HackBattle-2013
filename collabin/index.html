@@ -25,7 +25,7 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 
 
 .hhh{
-	display: none;
+	display: none !important;
 }
 
 a:hover
@@ -252,8 +252,10 @@ margin-top: 5px;
 		width: 100%;
 	}
 	.login {
-		float: left;
+		float: none;
 		width: 252px;
+		display: table;
+		margin: 0 auto;
 	}
 	.projectname .total{
 		float: right;
@@ -340,7 +342,7 @@ function onLinkedInAuth() {
     	var total = 0;
         for (key in data) {
         	total++;
-            var ul = $('<ul class="myprojects"><li class="projectowner"><img src=""></li><li class="projectname"><span class="total"></span></li><li class="projecskill blue"></li></ul>');
+            var ul = $('<ul class="myprojects"><li class="projectowner"><img src=""></li><li class="projectname"><span class="total"></span></li><li class="projectskill blue"></li></ul>');
             if (data[key].img) {
                 ul.find('.projectowner img').attr('src', data[key].img);
             }
@@ -350,8 +352,8 @@ function onLinkedInAuth() {
             }
             ul.find('.projectname').html(data[key].name);
             ul.find('.total').html(data[key].duration + 'hrs');
-            ul.find('.projectskill').html(data[key].skills.join());
-            $('.new').closest('h2').after(ul);
+            ul.find('.projectskill').html('Matches: ' + data[key].members);
+            $('.mynew').closest('h2').after(ul);
         }
 
         $('.mynew').prev().html(total);

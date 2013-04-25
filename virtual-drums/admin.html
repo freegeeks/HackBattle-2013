@@ -2,101 +2,61 @@
 <head>
 	<title>Virtual Drums - ADM</title>
     <style>
+/* Eric Meyer's Reset CSS v2.0 - http://cssreset.com */
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{border:0;font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:none}table{border-collapse:collapse;border-spacing:0}
+/* Eric Meyer's Reset CSS v2.0 - http://cssreset.com */
+
+
+html{
+	height: 100%;
+}
+body {
+	height: 100%;
+	font-family: 'Helvetica', Arial, sans-serif;
+}
 #slots {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 0;
     background-color: #FFF;
+    width: 100%;
+    height: 96%;
+	float: left;
 }
 
-#slots .slot {
-    position: absolute;
+.slot {
     z-index: 1;
     background-color: #000;
     color: white;
-    font-size: 20px;
+    font-size: 5em;
+	float: left;
+	margin: 1%;
+    padding: 8%;
+    border-radius: 60px;
+    text-align: center;
+    cursor: pointer;
+}
+.slot:hover{
+	background: #999;
 }
 
-#slot1 {
-    top: 10px;
-    left: 10px;
-    width: 160px;
-    height: 60px;
-}
 
-#slot2 {
-    top: 10px;
-    left: 180px;
-    width: 160px;
-    height: 60px;
-}
 
-#slot3 {
-    top: 80px;
-    left: 10px;
-    width: 160px;
-    height: 60px;
-}
+@media (max-width: 767px) {
+	#slot {
+		min-width: 380px;
+	}
+	.slot {
+	    z-index: 1;
+	    background-color: #000;
+	    color: white;
+	    font-size: 2em;
+		float: left;
+		margin: 1%;
+	    padding: 9%;
+	    border-radius: 60px;
+	    text-align: center;
+	    cursor: pointer;
+	}
 
-#slot4 {
-    top: 80px;
-    left: 180px;
-    width: 160px;
-    height: 60px;
 }
-
-#slot5 {
-    top: 150px;
-    left: 10px;
-    width: 60px;
-    height: 160px;
-}
-
-#slot6 {
-    top: 150px;
-    left: 180px;
-    width: 160px;
-    height: 60px;
-}
-
-#slot7 {
-    top: 320px;
-    left: 10px;
-    width: 60px;
-    height: 160px;
-}
-
-#slot8 {
-    top: 320px;
-    left: 160px;
-    width: 60px;
-    height: 160px;
-}
-
-#slot9 {
-    top: 320px;
-    left: 250px;
-    width: 60px;
-    height: 160px;
-}
-
-#slot10 {
-    top: 490px;
-    left: 10px;
-    width: 60px;
-    height: 160px;
-}
-
-#slot11 {
-    top: 520px;
-    left: 180px;
-    width: 160px;
-    height: 60px;
-}
-
     </style>
 
 <script src="/socket.io/socket.io.js"></script>
@@ -136,13 +96,6 @@ $(document).ready(function() {
         <div id="slot2" class="slot">Slot 2</div>
         <div id="slot3" class="slot">Slot 3</div>
         <div id="slot4" class="slot">Slot 4</div>
-        <div id="slot5" class="slot">Slot 5</div>
-        <div id="slot6" class="slot">Slot 6</div>
-        <div id="slot7" class="slot">Slot 7</div>
-        <div id="slot8" class="slot">Slot 8</div>
-        <div id="slot9" class="slot">Slot 9</div>
-        <div id="slot10" class="slot">Slot 10</div>
-        <div id="slot11" class="slot">Slot 11</div>
     </div>
 </body>
 </html>

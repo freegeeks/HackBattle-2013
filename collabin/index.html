@@ -308,6 +308,19 @@ function onLinkedInAuth() {
             $('.new').closest('h2').after(ul);
 	</ul>
     });
+
+    // When receiving member results
+    socket.on('member-results', function (data) {
+        for (key in data) {
+            var ul = $('<ul><li class="projectowner"><img src=""></li><li class="projectname"></li><li class="projecskill blue"></li></ul>');
+            if (data.pictureUrl) {
+                ul.find('.projectowner img').attr('src', data.pictureUrl);
+            }
+            ul.find('.projectname').html(data[key].firstName + ' ' + data[key].lastName);
+            ul.find('.projectskill').html(data[key].skills.join());
+            $('.vol').closest('h2').after(ul);
+	</ul>
+    });
 }
 </script>
 
@@ -344,21 +357,6 @@ Hello, <?js= firstName ?> <?js= lastName ?>.
 	
 <!-- Professional -->
 	<h2 class="bg2 titulo blue">VOLUNTEERS <span class="total">32</span><i class="vol"></i></h2>
-		<ul>
-		<li class="projectowner"><img src="https://www.gravatar.com/avatar/bdd950cb95810dc774a7836d86ef2038?s=160&d=https://geekli.st/images/missing.png&r=pg"></li>
-		<li class="projectname">Renato Cavallari</li>
-		<li class="projecskill blue">#1 Skill, #2 Skill, #3 Skill</li>
-	</ul>
-	<ul>
-		<li class="projectowner"><img src="https://secure.gravatar.com/avatar/eeb0b9b3a6040ce0009943c564bf5500?s=420&d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png"></li>
-		<li class="projectname">Renan Gonçalves</li>
-		<li class="projecskill blue">#1 Skill, #2 Skill, #3 Skill</li>
-	</ul>
-	<ul>
-		<li class="projectowner"><img src="http://m.c.lnkd.licdn.com/mpr/mpr/shrink_200_200/p/1/000/0ef/135/1a1a721.jpg"></li>
-		<li class="projectname">Renato Cardoso</li>
-		<li class="projecskill blue">#1 Skill, #2 Skill, #3 Skill</li>
-	</ul>	
 </div>
 
 <!-- Dashboard -->

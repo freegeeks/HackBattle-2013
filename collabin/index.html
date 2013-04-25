@@ -306,6 +306,9 @@ function onLinkedInAuth() {
 
     // When receiving project results
     socket.on('project-results', function (data) {
+    	// Delete everything from there
+    	$('ul.projects').remove();
+
     	var total = 0;
         for (key in data) {
         	total++;
@@ -361,7 +364,10 @@ function onLinkedInAuth() {
         data.skills.replace(/, /g, ',');
         data.skills.replace(/ /g, '');
         data.skills = data.skills.split(',');
+
         socket.emit('project-register', data);
+
+        showTab('dash');
     });
 }
 </script>

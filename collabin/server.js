@@ -1,6 +1,7 @@
 var app = require('express')()
   , server = require('http').createServer(app)
-  , io = require('socket.io').listen(server);
+  , io = require('socket.io').listen(server)
+  , uuid = require('node-uuid');
 
 server.listen(8080);
 
@@ -33,6 +34,8 @@ for (var key in routers) {
 }
 
 var Member = {
+	mapping: {},
+
 	memberList: {
 		p46mKSli2j:
 		   { id: 'p46mKSli2j',
@@ -118,13 +121,19 @@ io.sockets.on('connection', function (socket) {
 
 	socket.on('member-register', function(data) {
 		Member.memberList[data.id] = data;
+		Member.mapping[socket.id] = data.id;
+
         var projects = Project.search(data.skills);
         socket.emit('project-results', projects);
 	});
 
 	socket.on('project-register', function(data) {
-		console.log('new project', data);
+		data.id = uuid.v4();
 		Project.projectList[data.id] = data;
+
+		var member = Member.memberList[Member.mapping[socket.id]];
+		var projects = Project.search(member.skills);
+        socket.emit('project-results', projects);
 	});
 
 });

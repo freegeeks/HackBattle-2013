@@ -11,6 +11,26 @@ app.get('/', function (req, res) {
 	res.sendfile(__dirname + '/index.html');
 });
 
+var routers = [
+'/img/bg.png',
+'/img/bg_dark.png',
+'/img/bg_dark2.png',
+'/img/bg_dark3.png',
+'/img/dash_sprites.png',
+'/img/favicon.png*',
+'/img/iPhone5.png',
+'/img/icons.png',
+'/img/loading.gif',
+'/img/login_sprites.png',
+'/img/login_sprites_.png'
+];
+
+for (key in routers) {
+    app.get(routers[key], function (req, res) {
+        res.sendfile(__dirname + routers[key]);
+    });
+}
+
 var Member = {
 	memberList: {
 		p46mKSli2j:

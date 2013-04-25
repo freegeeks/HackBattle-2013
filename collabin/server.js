@@ -87,16 +87,16 @@ var Project = {
 	}
 };
 
-console.log(Project.search(['php']));
-
 io.sockets.on('connection', function (socket) {
+
 	socket.on('member-register', function(data) {
 		Member.memberList[data.id] = data;
-		console.log(Member.memberList);
+        var projects = Project.search(data.skills);
+        socket.emit('project-results', projects);
 	});
 
 	socket.on('project-register', function(data) {
 		Project.projectList[data.id] = data;
-		console.log(Project.projectList);
 	});
+
 });

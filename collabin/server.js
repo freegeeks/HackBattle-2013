@@ -101,6 +101,8 @@ var Project = {
 		}
 	},
 
+    myProjectList: {},
+
 	search: function(skills) {
 		var matches = {};
 		for (var projectId in Project.projectList) {
@@ -125,10 +127,12 @@ io.sockets.on('connection', function (socket) {
 
         var projects = Project.search(data.skills);
         socket.emit('project-results', projects);
+        socket.emit('myproject-results', Project.myProjectList);
 	});
 
 	socket.on('project-register', function(data) {
 		data.id = uuid.v4();
+		Project.myProjectList[data.id] = data;
 		Project.projectList[data.id] = data;
 
 		var member = Member.memberList[Member.mapping[socket.id]];

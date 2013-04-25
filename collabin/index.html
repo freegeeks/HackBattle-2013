@@ -329,6 +329,31 @@ function onLinkedInAuth() {
         $('.new').prev().html(total);
     });
 
+    // When receiving project results
+    socket.on('myproject-results', function (data) {
+    	// Delete everything from there
+    	$('ul.myprojects').remove();
+
+    	var total = 0;
+        for (key in data) {
+        	total++;
+            var ul = $('<ul class="myprojects"><li class="projectowner"><img src=""></li><li class="projectname"><span class="total"></span></li><li class="projecskill blue"></li></ul>');
+            if (data[key].img) {
+                ul.find('.projectowner img').attr('src', data[key].img);
+            }
+            else {
+                ul.find('.projectowner img').remove();
+                ul.find('.projectowner').addClass('no-img clear');
+            }
+            ul.find('.projectname').html(data[key].name);
+            ul.find('.total').html(data[key].duration + 'hrs');
+            ul.find('.projectskill').html(data[key].skills.join());
+            $('.new').closest('h2').after(ul);
+        }
+
+        $('.mynew').prev().html(total);
+    });
+
     // When receiving member results
     socket.on('member-results', function (data) {
     	var total = 0;
@@ -397,6 +422,8 @@ function onLinkedInAuth() {
 	<a href="#" class="newp bg2 clear">new project</a>
 	<a href="#" class="coll bg2 clear">collaborate</a>
 	
+	<h2 class="bg2 titulo blue">MY PROJECTS <span class="total">0</span><i class="mynew"></i></h2>
+    <!-- Projects -->
 
 <!-- Projects -->
 	<h2 class="bg2 titulo blue">PROJECTS <span class="total">0</span><i class="new"></i></h2>

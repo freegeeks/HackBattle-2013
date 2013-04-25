@@ -9,6 +9,7 @@ app.get('/', function (req, res) {
 });
 
 var routers = [
+    '/img/bg_blue.png',
 	'/img/bg.png',
 	'/img/bg_dark.png',
 	'/img/bg_dark2.png',

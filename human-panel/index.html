@@ -1,0 +1,46 @@
+<html>
+<head>
+	<title>Human panel</title>
+    <style>
+#slots {
+    border: 1px solid #000;
+    background-color: #FFF;
+    width: 300px;
+    height: 600px;
+}
+    </style>
+</head>
+<body>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="http://code.jquery.com/jquery-2.0.0.js"></script>
+<script>
+	$(document).ready(function() {
+
+	    var socket = io.connect('http://localhost', 8080);
+
+        // Clicking on the slot
+		$('#slots').bind('click', function(e) {
+            // TODO get mouse position
+            var x = e.pageX;
+            var y = e.pageY;
+
+            // sends location to the server
+			socket.emit('position', { x: x, y: y });
+
+            // listen to change slot event
+            socket.on('change-color', function (data) {
+                $('body').css('background-color', data.color);
+            });
+
+            // Remove slot selection
+            $('#slots').remove();
+		});
+	});
+</script>
+
+    <div id="slots">
+    </div>
+
+</body>
+</html>

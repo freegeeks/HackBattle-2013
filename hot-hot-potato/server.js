@@ -40,7 +40,7 @@ var Game = {
 		// Check the loser
 		setTimeout(function() {
 			Game.stop();
-		}, 10000);
+		}, 20000);
 	},
 
 	stop: function() {

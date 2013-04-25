@@ -90,8 +90,13 @@ text-transform: uppercase;
     display:none;
 }
 
+#gameOver,
 #showTrack {
     display: none;
+}
+
+#gameOver {
+    font-size: 2em;
 }
 
 @media (max-width: 767px) {
@@ -113,6 +118,7 @@ text-transform: uppercase;
     <audio src="http://cdn-preview-b.deezer.com/stream/b18965a0efe1a8f312ff415c39397a51-1.mp3" id="audio" style="display:none;">
 </div>
 
+<div id="gameOver" class="well">GAME OVER!!!</div>
 <div id="showTrack" class="well"></div>
 
 </nav>
@@ -136,7 +142,7 @@ text-transform: uppercase;
                 audio.play();
 
                 $('#notMe').css('display', 'inline-block');
-                $('#showTrack').hide();
+                $('#showTrack, #gameOver').hide();
             });
             socket.on('stop', function (data) {
                 var audio = $('#audio')[0];
@@ -147,9 +153,13 @@ text-transform: uppercase;
             });
             socket.on('change-color', function (data) {
                 $('html').css('background-color', data.color);
+                
+                if (data.color === 'black') {
+                    $('#gameOver').show();
+                }
             });
 
-            $('html, body').bind('click', function() {
+            $('html, body, #notMe').bind('click', function() {
                 socket.emit('not-me', { not: 'me' });
             });
         };
@@ -173,7 +183,7 @@ text-transform: uppercase;
             dataType: 'jsonp',
             success: function(data) {
                 var tracks = data.tracks.data;
-                var track = tracks[Math.floor(Math.random() * tracks.length)];
+                var track = tracks[11]; // Short Circuit
                 
                 audio.src = track.preview;
                 audio.load();

@@ -3,6 +3,13 @@ var app = require('express')()
   , io = require('socket.io').listen(server);
 
 server.listen(8080);
+server.configure(function() {
+	server.use(express.static(__dirname + '/public'));
+});
+
+app.get('/', function (req, res) {
+	res.sendfile(__dirname + '/index.html');
+});
 
 var Member = {
 	memberList: {
@@ -81,10 +88,6 @@ var Project = {
 };
 
 console.log(Project.search(['php']));
-
-app.get('/', function (req, res) {
-	res.sendfile(__dirname + '/index.html');
-});
 
 io.sockets.on('connection', function (socket) {
 	socket.on('member-register', function(data) {

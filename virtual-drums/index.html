@@ -112,18 +112,30 @@
         audio['bd']= new Audio();
         audio['bd'].src = 'bd.wav';
         audio['bd'].load();
+        audio['bd'].addEventListener('ended', function () {
+            $('body').css('background-color', 'white');
+        });
 
         audio['hh1']= new Audio();
         audio['hh1'].src = 'hh1.wav';
         audio['hh1'].load();
+        audio['hh1'].addEventListener('ended', function () {
+            $('body').css('background-color', 'white');
+        });
 
         audio['hh2']= new Audio();
         audio['hh2'].src = 'hh2.wav';
         audio['hh2'].load();
+        audio['hh2'].addEventListener('ended', function () {
+            $('body').css('background-color', 'white');
+        });
 
         audio['sn']= new Audio();
         audio['sn'].src = 'sn.wav';
         audio['sn'].load();
+        audio['sn'].addEventListener('ended', function () {
+            $('body').css('background-color', 'white');
+        });
 
 	    var socket = io.connect('http://public.renangoncalves.com', 8080);
 
@@ -136,9 +148,7 @@
 
             // listen to change slot event
             socket.on('change-' + slot, function (data) {
-                if (data.snd) {
-                    audio[data.snd].play();
-                }
+                audio[data.snd].play();
                 $('body').css('background-color', data.color);
             });
 

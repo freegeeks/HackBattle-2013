@@ -59,8 +59,5 @@ io.sockets.on('connection', function (socket) {
 	socket.on('hit', function(data) {
         // Tell the adm where the slot is
 		io.sockets.emit('change-' + data.slot, { color: slots[data.slot].color, snd: slots[data.slot].snd });
-	    setTimeout(function () {
-            io.sockets.emit('change-' + data.slot, { color: '' });
-        }, 200);
 	});
 });

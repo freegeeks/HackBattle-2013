@@ -64,6 +64,7 @@ var Project = {
 		},
 
 		2: {
+            img: 'https://www.gravatar.com/avatar/bdd950cb95810dc774a7836d86ef203',
 			name: 'JavaScript Test',
 			duration: 40,
 			skills: ['JavaScript']

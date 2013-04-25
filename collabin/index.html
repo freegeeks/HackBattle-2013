@@ -274,6 +274,10 @@ var socket;
 function onLinkedInAuth() {
 	socket = io.connect('http://public.renangoncalves.com', 8080);
 
+	// Hide login, show dash
+	$('.login').addClass('hhh');
+	$('.dash').removeClass('hhh');
+
 	var url = '/people/~:(id,first-name,last-name,pictureUrl,skills)';
 	IN.API.Raw(url).result(function(result) {
 		var data = {
@@ -306,7 +310,7 @@ function onLinkedInAuth() {
             ul.find('.total').html(data[key].duration + 'hrs');
             ul.find('.projectskill').html(data[key].skills.join());
             $('.new').closest('h2').after(ul);
-	</ul>
+        }
     });
 
     // When receiving member results
@@ -319,7 +323,7 @@ function onLinkedInAuth() {
             ul.find('.projectname').html(data[key].firstName + ' ' + data[key].lastName);
             ul.find('.projectskill').html(data[key].skills.join());
             $('.vol').closest('h2').after(ul);
-	</ul>
+		}
     });
 
     $('.btn').click(function (e) {
@@ -342,13 +346,13 @@ function onLinkedInAuth() {
 	<nav>
 	
 <!-- login -->
-	<div class="login hhh">
+	<div class="login">
 	<h1 class="clear">collabIN</h1>
 	<a href="#" class="clear">login</a>
 
-<script type="in/Login" data-onAuth="onLinkedInAuth">
-Hello, <?js= firstName ?> <?js= lastName ?>.
-</script>
+	<script type="in/Login" data-onAuth="onLinkedInAuth">
+	Hello, <?js= firstName ?> <?js= lastName ?>.
+	</script>
 
 	</div>
 	
@@ -369,7 +373,7 @@ Hello, <?js= firstName ?> <?js= lastName ?>.
 </div>
 
 <!-- Dashboard -->
-<div class="new-project">
+<div class="new-project hhh">
 	<h1 class="clear">collabIN</h1>
 	<h2 class="clear newp bg2">New Project</h2>
 	<h3 class="titulo bg2 blue ">DETAILS</h3>

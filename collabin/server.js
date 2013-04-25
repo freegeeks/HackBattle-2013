@@ -33,8 +33,16 @@ var Member = {
 
 	search: function(skills) {
 		var matches = {};
-		for (var key in Member.memberList) {
-			//
+		for (var memberId in Member.memberList) {
+			var member = Member.memberList[memberId];
+			var joined = member.skills.join(' ');
+			for (var key in skills) {
+				var re = new RegExp(skills[key], 'i');
+				console.log(joined, re);
+				if (joined.match(re)) {
+					matches[memberId] = member;
+				}
+			}
 		}
 		return matches;
 	}

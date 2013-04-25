@@ -107,35 +107,19 @@
 	$(document).ready(function() {
 
         // Load audio to be played on a hit
+        var names = ['bd', 'hh1', 'hh2', 'sn', 'tom', 'coin'];
         var audio = {};
 
-        audio['bd']= new Audio();
-        audio['bd'].src = 'bd.wav';
-        audio['bd'].load();
-        audio['bd'].addEventListener('ended', function () {
-            $('body').css('background-color', 'white');
-        });
+        for (var i in names) {
+            var name = names[i];
 
-        audio['hh1']= new Audio();
-        audio['hh1'].src = 'hh1.wav';
-        audio['hh1'].load();
-        audio['hh1'].addEventListener('ended', function () {
-            $('body').css('background-color', 'white');
-        });
-
-        audio['hh2']= new Audio();
-        audio['hh2'].src = 'hh2.wav';
-        audio['hh2'].load();
-        audio['hh2'].addEventListener('ended', function () {
-            $('body').css('background-color', 'white');
-        });
-
-        audio['sn']= new Audio();
-        audio['sn'].src = 'sn.wav';
-        audio['sn'].load();
-        audio['sn'].addEventListener('ended', function () {
-            $('body').css('background-color', 'white');
-        });
+            audio[name]= new Audio();
+            audio[name].src = name + '.wav';
+            audio[name].load();
+            audio[name].addEventListener('ended', function () {
+                $('body').css('background-color', 'white');
+            });
+        }
 
 	    var socket = io.connect('http://public.renangoncalves.com', 8080);
 

@@ -8,7 +8,7 @@ server.listen(8080);
 slots = {
     slot1: {
         color: 'red',
-        snd: 'sn'
+        snd: 'tom'
     },
     slot2: {
         color: 'blue',
@@ -42,6 +42,9 @@ app.get('/hh2.wav', function (req, res) {
 });
 app.get('/bd.wav', function (req, res) {
   res.sendfile(__dirname + '/bd.wav');
+});
+app.get('/tom.wav', function (req, res) {
+  res.sendfile(__dirname + '/tom.wav');
 });
 app.get('/super-secret-admin.html', function (req, res) {
   res.sendfile(__dirname + '/admin.html');

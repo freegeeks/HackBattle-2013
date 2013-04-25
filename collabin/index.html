@@ -312,7 +312,7 @@ function onLinkedInAuth() {
     	var total = 0;
         for (key in data) {
         	total++;
-            var ul = $('<ul class="projects"><li class="projectowner"><img src=""></li><li class="projectname"><span class="total"></span></li><li class="projecskill blue"></li></ul>');
+            var ul = $('<ul class="projects"><li class="projectowner"><img src=""></li><li class="projectname"><span class="total"></span></li><li class="projectskill blue"></li></ul>');
             if (data[key].img) {
                 ul.find('.projectowner img').attr('src', data[key].img);
             }
@@ -322,7 +322,7 @@ function onLinkedInAuth() {
             }
             ul.find('.projectname').html(data[key].name);
             ul.find('.total').html(data[key].duration + 'hrs');
-            ul.find('.projectskill').html(data[key].skills.join());
+            ul.find('.projectskill').html(data[key].skills.join(', '));
             $('.new').closest('h2').after(ul);
         }
 
